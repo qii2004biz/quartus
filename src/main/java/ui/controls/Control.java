@@ -11,7 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class Control {
     private By locator;
     private WebDriver driver;
-    public static final longh  TIMEOUT = Configuration.timeout ();
+    public static final long TIMEOUT = Configuration.timeout ();
 
     public By getLocator() {
         {
