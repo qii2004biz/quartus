@@ -1,17 +1,16 @@
-package core;
+package ui.controls;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
-import ui.controls.Control;
+import ui.Page;
 
 public class SelectList extends Control {
-    public SelectList(WebDriver driver, By locator) {
-        super ( driver, locator );
+    public SelectList(Page pageValue, By locator) {
+        super ( pageValue, locator );
     }
 
     public Select getSelect() {
-        return new Select ( this.getElement () );
+        return new Select ( this.element () );
     }
 
     public void selectByText(String value) {
