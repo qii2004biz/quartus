@@ -36,7 +36,6 @@
         <webdriver.base.url></webdriver.base.url>
         <webdriver.driver>chrome</webdriver.driver>
     </properties>
-
     <dependencies>
         <dependency>
             <groupId>io.cucumber</groupId>
@@ -79,7 +78,6 @@
             <artifactId>selenium-api</artifactId>
             <version>${selenium.version}</version>
         </dependency>
-
         <dependency>
             <groupId>ru.stqa.selenium</groupId>
             <artifactId>webdriver-factory</artifactId>
@@ -100,7 +98,6 @@
             <artifactId>hamcrest-all</artifactId>
             <version>1.3</version>
         </dependency>
-
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -147,7 +144,6 @@
             <artifactId>webdrivermanager</artifactId>
             <version>3.2.0</version>
         </dependency>
-
         <dependency>
             <groupId>ru.yandex.qatools.ashot</groupId>
             <artifactId>ashot</artifactId>
@@ -179,21 +175,10 @@
             <version>3.12.1</version>
         </dependency>
         <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-all</artifactId>
-            <version>1.3</version>
-        </dependency>
-        <dependency>
             <groupId>com.github.javafaker</groupId>
             <artifactId>javafaker</artifactId>
             <version>1.0.0</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.junit.jupiter</groupId>-->
-<!--            <artifactId>junit-jupiter</artifactId>-->
-<!--            <version>RELEASE</version>-->
-<!--            <scope>test</scope>-->
-<!--        </dependency>-->
         <!-- https://mvnrepository.com/artifact/io.appium/java-client -->
         <dependency>
             <groupId>io.appium</groupId>
@@ -204,18 +189,6 @@
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>4.5.12</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
-        <dependency>
-            <groupId>io.github.bonigarcia</groupId>
-            <artifactId>webdrivermanager</artifactId>
-            <version>3.2.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>RELEASE</version>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>

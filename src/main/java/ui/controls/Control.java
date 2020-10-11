@@ -11,8 +11,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import ui.Page;
 
 public class Control {
-    private By locator;
     private Page parent;
+    private By locator;
     public static final long TIMEOUT = Configuration.timeout ();
 
     public Control(Page pageValue, By locatorValue) {
@@ -25,6 +25,7 @@ public class Control {
     public WebElement element() {
         return getDriver ().findElement ( locator );
     }
+
     public boolean exists(long timeout) {
         WebDriverWait wait = new WebDriverWait ( getDriver (), timeout );
         try {

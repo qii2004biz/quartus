@@ -1,9 +1,7 @@
 package ui.controls;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import ui.Page;
-import ui.controls.Control;
 
 public class Edit extends Control {
 

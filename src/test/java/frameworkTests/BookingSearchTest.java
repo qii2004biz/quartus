@@ -1,4 +1,4 @@
-package com.sample.tests;
+package frameworkTests;
 
 import core.Configuration;
 import core.Driver;
@@ -10,10 +10,10 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.*;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import pages.SearchPage;
+import pages.SearchPageResults;
 import ui.Page;
-import ui.controls.Control;
-import ui.controls.Edit;
-import ui.controls.SelectList;
+import ui.PageFactory;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -26,20 +26,22 @@ import static org.openqa.selenium.Keys.ENTER;
 public class BookingSearchTest {
     WebDriver driver;
     private String destination;
-    private boolean isLeisure;
-    private int numberOfAdults;
+    private boolean isForWork;
+    private String numberOfAdults;
+    private SearchPage searchPage;
+    private SearchPageResults searchPageResults;
 
-    public BookingSearchTest(String destination, boolean isLeisure, int numberOfAdults) {
+    public BookingSearchTest(String destination, boolean isForWork, String numberOfAdults) {
         this.destination = destination;
-        this.isLeisure = isLeisure;
+        this.isForWork = isForWork;
         this.numberOfAdults = numberOfAdults;
     }
     @Parameterized.Parameters
     public static Collection<Object[]> getParameters() {
         return Arrays.asList(
                 new Object[][] {
-                        {"London", true, 2}
-                        ,{"Manchester", false, 1},
+                        {"London", true, "2 adults"}
+                        ,{"Manchester", false, "1 adult"},
                 }
         );
     }
@@ -51,7 +53,6 @@ public class BookingSearchTest {
         Configuration.load ();
         Configuration.print ();
 
-//        String baseurl = System.getProperty ( "url" );
         String browser = System.getProperty ( "browser" );
         BrowserWebDriverSetup.setupBrowserWebDriver ();
 
@@ -62,37 +63,29 @@ public class BookingSearchTest {
         driver = Driver.current ();
         js = (JavascriptExecutor) driver;
         vars = new HashMap<String, Object> ();
+
+        js.executeScript("window.scrollTo(0,0)");
+
+        searchPage = PageFactory.init ( SearchPage.class);
+        searchPage.navigate ();
     }
     @After
     public void tearDown() {
         driver.quit();
     }
     @Test
-    public void testValidSearch() {
-        //Declarations
-        Page pageValue = new Page ( driver );
-        Edit editDestination = new Edit ( pageValue, By.id("ss") );
-
-        Control SearchButton   = new Control(pageValue, By.cssSelector("button.sb-searchbox__button"));
-        Control chooseCheckInDate = new Control(pageValue, By.cssSelector("table td.bui-calendar__date[data-date='2020-10-16']") );
-
-        Control checkOut = new Control(pageValue, By.cssSelector("label.sb-searchbox__label[for='checkout_monthday']") );
-        Control chooseCheckOutDate = new Control(pageValue, By.cssSelector("table td.bui-calendar__date[data-date='2020-10-18']") );
-
-        SelectList selectAdultNumber = new SelectList ( pageValue, By.id("group_adults") );
-
-        driver.get(System.getProperty ( "url" ));
-        driver.manage().window().setSize(new Dimension (950, 1050));
-        js.executeScript("window.scrollTo(0,0)");
+    public void testValidSearch() throws Exception {
         //Actions
-        editDestination.setText ( this.destination );
-        editDestination.element ().sendKeys ( ENTER );
+        searchPage.editDestination.setText ( this.destination );
+        searchPage.editDestination.element ().sendKeys ( ENTER );
+        searchPage.checkIn ();
+        searchPage.selectAdultNumber.selectByText ( String.valueOf ( this.numberOfAdults ) );
+        searchPage.selectForWork ( this.isForWork );
+        searchPage.searchButton.click ();
 
-        chooseCheckInDate.click();
-        checkOut.click ();
-        chooseCheckOutDate.click();
-        selectAdultNumber.selectByText ( String.valueOf ( "1 adult" ) );
-        SearchButton.click ();
+        searchPageResults = PageFactory.init ( SearchPageResults.class );
+        searchPageResults.editDestination.click ();
+        searchPageResults.isTextPresent ( destination );
     }
 }
 /*
