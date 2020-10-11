@@ -15,10 +15,7 @@ import pages.SearchPageResults;
 import ui.Page;
 import ui.PageFactory;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import static org.openqa.selenium.Keys.ENTER;
 
@@ -86,6 +83,8 @@ public class BookingSearchTest {
         searchPageResults = PageFactory.init ( SearchPageResults.class );
         searchPageResults.editDestination.click ();
         searchPageResults.isTextPresent ( destination );
+        String fileName = "./target/screenshots/" + searchPage.getClass ().getSimpleName () + "-" +new Date().getTime () + ".png";
+        searchPageResults.captureScreenShot ( fileName );
     }
 }
 /*
