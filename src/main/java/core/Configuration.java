@@ -48,4 +48,6 @@ public class Configuration {
         String value = get ( "timeout" ).trim ();
         return Long.parseLong ( value );
     }
+
+    public static Platform platform () { return Platform.fromString ( System.getProperty ("browser") );}
 }

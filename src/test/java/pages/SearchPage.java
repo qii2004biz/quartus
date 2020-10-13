@@ -1,5 +1,6 @@
 package pages;
 
+import core.Configuration;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import ui.FindBy;
@@ -30,9 +31,11 @@ public class SearchPage extends Page {
 
     @Override
     public Page navigate() {
-        String baseUrl = System.getProperty ( "url" );
-        this.getDriver ().get ( baseUrl );
-        this.getDriver ().manage ().window ().setSize ( new Dimension ( 950, 1050 ) );
+        if (Configuration.platform ().isWeb ()) {
+            String baseUrl = System.getProperty ( "url" );
+            this.getDriver ().get ( baseUrl );
+            this.getDriver ().manage ().window ().setSize ( new Dimension ( 950, 1050 ) );
+        }
 
         return this;
     }

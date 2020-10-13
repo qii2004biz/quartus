@@ -1,12 +1,13 @@
 package ui;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import core.Platform;
+
+import java.lang.annotation.*;
 
 @Target(ElementType.FIELD)
 @Retention ( value = RetentionPolicy.RUNTIME )
+@Repeatable ( FindByList.class )
 public @interface FindBy {
     String locator();
+    Platform platform() default Platform.ANY;
 }

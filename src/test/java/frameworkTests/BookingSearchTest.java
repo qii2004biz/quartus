@@ -20,7 +20,7 @@ import java.util.*;
 import static org.openqa.selenium.Keys.ENTER;
 
 @RunWith(Parameterized.class)
-public class BookingSearchTest {
+public class BookingSearchTest extends TestCommon {
     WebDriver driver;
     private String destination;
     private boolean isForWork;
@@ -43,36 +43,10 @@ public class BookingSearchTest {
         );
     }
 
-    private Map<String, Object> vars;
-    JavascriptExecutor js;
-    @Before
-    public void setUp() throws Exception {
-        Configuration.load ();
-        Configuration.print ();
-
-        String browser = System.getProperty ( "browser" );
-        BrowserWebDriverSetup.setupBrowserWebDriver ();
-
-        DesiredCapabilities cap = new DesiredCapabilities (  );
-        Driver.add (browser, cap);
-
-
-        driver = Driver.current ();
-        js = (JavascriptExecutor) driver;
-        vars = new HashMap<String, Object> ();
-
-        js.executeScript("window.scrollTo(0,0)");
-
-        searchPage = PageFactory.init ( SearchPage.class);
-        searchPage.navigate ();
-    }
-    @After
-    public void tearDown() {
-        driver.quit();
-    }
     @Test
     public void testValidSearch() throws Exception {
         //Actions
+        searchPage = PageFactory.init ( SearchPage.class );
         searchPage.editDestination.setText ( this.destination );
         searchPage.editDestination.element ().sendKeys ( ENTER );
         searchPage.checkIn ();

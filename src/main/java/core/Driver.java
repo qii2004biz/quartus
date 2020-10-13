@@ -1,5 +1,7 @@
 package core;
 
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.ios.IOSDriver;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -9,6 +11,7 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -24,18 +27,29 @@ public final class Driver {
     private static ConcurrentHashMap<String, WebDriver> driverThreadMap = new ConcurrentHashMap<String, WebDriver> ();
 
     private static final Map<String, Class<?>> driverMap = new HashMap<String, Class<?>> () {
+        private static final long serialVersionUID = 1L;
         {
-            put ( "chrome", ChromeDriver.class );
-            put ( "firefox", FirefoxDriver.class );
-            put ( "ie", InternetExplorerDriver.class );
-            put ( "edge", EdgeDriver.class );
-            put ( "safari", SafariDriver.class );
-            put ( "opera", OperaDriver.class );
+            put ( Platform.CHROME.getValue (), ChromeDriver.class );
+            put ( Platform.FIREFOX.getValue (), FirefoxDriver.class );
+            put ( Platform.IE.getValue (), InternetExplorerDriver.class );
+            put ( Platform.EDGE.getValue (), EdgeDriver.class );
+            put ( Platform.SAFARI.getValue (), SafariDriver.class );
+            put ( Platform.OPERA.getValue (), OperaDriver.class );
+            put ( Platform.ANDROID_NATIVE.getValue () , AndroidDriver.class );
+            put ( Platform.IOS_NATIVE.getValue (), IOSDriver.class );
         }
     };
 
     private static String getThreadName() {
         return Thread.currentThread ().getName () + "-" + Thread.currentThread ().getId ();
+    }
+
+    public static void add(String url, String browser, Capabilities capabilities) throws Exception {
+        Class<?> driverClass = driverMap.get ( browser );
+        driver = (WebDriver) driverClass.getConstructor ( URL.class, Capabilities.class )
+                .newInstance ( new URL(url), capabilities );
+        String threadName = getThreadName ();
+        driverThreadMap.put ( threadName, driver );
     }
 
     public static void add(String browser, Capabilities capabilities) throws Exception {
@@ -49,43 +63,4 @@ public final class Driver {
         String threadName = getThreadName ();
         return driverThreadMap.get ( threadName );
     }
-//    public static void ad(String browser, )
-//    public static String getThreadName() {
-//        return Thread.currentThread ().getName () + "-" + Thread.currentThread ().getId ();
-//    }
-//
-//
-//
-//    public static WebDriver current() {
-//        String threadName = getThreadName ();
-//        return driverThreadMap.get ( threadName );
-//    }
-
-//    private static Hashtable<TargetPlatformMethods.TargetPlatform, Type> optionsMap
-//            = new Hashtable<TargetPlatformMethods.TargetPlatform, Type> ();
-//
-//
-//    static {
-//        {
-//            driverMap.put ( TargetPlatformMethods.TargetPlatform.CHROME, ChromeDriver.class.getComponentType () );
-//            driverMap.put ( TargetPlatformMethods.TargetPlatform.FIREFOX, FirefoxDriver.class.getComponentType () );
-//            driverMap.put ( TargetPlatformMethods.TargetPlatform.SAFARI, SafariDriver.class.getComponentType () );
-//            driverMap.put ( TargetPlatformMethods.TargetPlatform.IE, InternetExplorerDriver.class.getComponentType () );
-//            driverMap.put ( TargetPlatformMethods.TargetPlatform.EDGE, EdgeDriver.class.getComponentType () );
-//            driverMap.put ( TargetPlatformMethods.TargetPlatform.OPERA, OperaDriver.class.getComponentType () );
-//            driverMap.put ( TargetPlatformMethods.TargetPlatform.ANDROID_NATIVE, AndroidDriver.class.getComponentType () );
-//            driverMap.put ( TargetPlatformMethods.TargetPlatform.IOS_NATIVE, IOSDriver.class.getComponentType () );
-//        }
-//    };
-
-//    static {
-//        {
-//            optionsMap.put ( TargetPlatformMethods.TargetPlatform.CHROME, ChromeOptions.class.getComponentType () );
-//            optionsMap.put ( TargetPlatformMethods.TargetPlatform.FIREFOX, FirefoxOptions.class.getComponentType () );
-//            optionsMap.put ( TargetPlatformMethods.TargetPlatform.SAFARI, SafariOptions.class.getComponentType () );
-//            optionsMap.put ( TargetPlatformMethods.TargetPlatform.IE, InternetExplorerOptions.class.getComponentType () );
-//            optionsMap.put ( TargetPlatformMethods.TargetPlatform.EDGE, EdgeOptions.class.getComponentType () );
-//            optionsMap.put ( TargetPlatformMethods.TargetPlatform.OPERA, OperaOptions.class.getComponentType () );
-//        }
-//    };
 }
