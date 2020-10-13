@@ -1,6 +1,7 @@
 package pages;
 
 import core.Configuration;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import ui.FindBy;
@@ -9,12 +10,16 @@ import ui.controls.Control;
 import ui.controls.Edit;
 import ui.controls.SelectList;
 
+import static utils.DateUtilities.adjustDate;
+
 public class SearchPage extends Page {
+    String checkInDay = adjustDate ( "yyyy-MM-dd", 1 );
+    String checkOutDay = adjustDate ( "yyyy-MM-dd", 4 );
     @FindBy(locator = "ss")
     public Edit editDestination;
     @FindBy(locator = "css=button.sb-searchbox__button")
     public Control searchButton;
-    @FindBy(locator = "css=table td.bui-calendar__date[data-date='2020-10-16']")
+    @FindBy(locator = "css=table td.bui-calendar__date[data-date='"+"2020-10-16"+"']")
     public Control chooseCheckInDate;
     @FindBy(locator = "css=label.sb-searchbox__label[for='checkout_monthday']")
     public Control checkOut;
@@ -40,9 +45,12 @@ public class SearchPage extends Page {
         return this;
     }
 
-    public void checkIn() {
-        chooseCheckInDate.click ();
+    public void selectCheckinCheckOutDate() {
+        Control checkInDate = buildLocatorControl ( "table td.bui-calendar__date[data-date='"+checkInDay+"']" );
+        checkInDate.click ();
+
         checkOut.click ();
+        Control chooseCheckOutDate = buildLocatorControl ( "table td.bui-calendar__date[data-date='"+checkOutDay+"']" );
         chooseCheckOutDate.click ();
     }
 
@@ -52,4 +60,8 @@ public class SearchPage extends Page {
                 forWork.click ();
         }
     }
+    private Control buildLocatorControl (String locatorText) {
+        return new Control (this, By.cssSelector ( locatorText ));
+    }
+
 }

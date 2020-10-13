@@ -1,18 +1,11 @@
 package frameworkTests;
 
-import core.Configuration;
-import core.Driver;
-import facades.webDriverManager.BrowserWebDriverSetup;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.*;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import pages.SearchPage;
 import pages.SearchPageResults;
-import ui.Page;
 import ui.PageFactory;
 
 import java.util.*;
@@ -49,7 +42,7 @@ public class BookingSearchTest extends TestCommon {
         searchPage = PageFactory.init ( SearchPage.class );
         searchPage.editDestination.setText ( this.destination );
         searchPage.editDestination.element ().sendKeys ( ENTER );
-        searchPage.checkIn ();
+        searchPage.selectCheckinCheckOutDate ();
         searchPage.selectAdultNumber.selectByText ( String.valueOf ( this.numberOfAdults ) );
         searchPage.selectForWork ( this.isForWork );
         searchPage.searchButton.click ();
