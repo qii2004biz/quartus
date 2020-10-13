@@ -35,10 +35,11 @@ public class TestCommon {
         BrowserWebDriverSetup.setupBrowserWebDriver ();
 
         DesiredCapabilities cap = new DesiredCapabilities (  );
-//        cap.setCapability ( "platformName", "Android" );
+        cap.setCapability ( "platformName", "Android" );
 //        cap.setCapability ( "app", new File (Configuration.get ( "app_path" )).getAbsolutePath () );
-//        cap.setCapability ( "deviceName", "Any" );
-//        cap.setCapability ( "commandTimeout", "60" );
+        cap.setCapability ( "deviceName", "Android Emulator" );
+        cap.setCapability ( "browserName", "Chrome" );
+        cap.setCapability ( "commandTimeout", "60" );
 
 
         if (Configuration.platform ().isWeb ()) {

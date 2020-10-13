@@ -36,16 +36,19 @@ public class SearchPage extends Page {
 
     @Override
     public Page navigate() {
+        String baseUrl = System.getProperty ( "url" );
+        this.getDriver ().get ( baseUrl );
+
         if (Configuration.platform ().isWeb ()) {
-            String baseUrl = System.getProperty ( "url" );
-            this.getDriver ().get ( baseUrl );
             this.getDriver ().manage ().window ().setSize ( new Dimension ( 950, 1050 ) );
         }
-
         return this;
     }
 
     public void selectCheckinCheckOutDate() {
+        //Example of handling creating a dynamic control on a page
+        //containing non-static content.
+
         Control checkInDate = buildLocatorControl ( "table td.bui-calendar__date[data-date='"+checkInDay+"']" );
         checkInDate.click ();
 

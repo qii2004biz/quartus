@@ -185,6 +185,7 @@
             <artifactId>java-client</artifactId>
             <version>4.1.2</version>
         </dependency>
+
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
