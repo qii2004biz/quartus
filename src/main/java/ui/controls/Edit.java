@@ -8,7 +8,7 @@ public class Edit extends Control {
     public Edit(Page pageValue, By locatorValue) {
         super ( pageValue, locatorValue );
     }
-    public void setText(String value) {
+    public void setText(String value) throws Exception {
         this.click ();
         this.element ().clear ();
         this.element ().sendKeys ( value );

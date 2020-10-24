@@ -14,6 +14,7 @@ import ui.Page;
 import ui.PageFactory;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.Map;
 
 public class Hooks {
@@ -56,7 +57,8 @@ public class Hooks {
     public void afterScenario(Scenario scenario) throws IOException {
         if (scenario.isFailed ()) {
             Page currentPage = new Page ( Driver.current () );
-            currentPage.captureScreenShot ();
+            String fileName = "./target/screenshots/" + searchPage.getClass ().getSimpleName () + "-" +new Date ().getTime () + ".png";
+            currentPage.captureScreenShot ( fileName );
         }
         Driver.current ().quit ();
     }
