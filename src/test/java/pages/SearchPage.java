@@ -19,7 +19,7 @@ public class SearchPage extends Page {
     public Edit editDestination;
     @FindBy(locator = "css=button.sb-searchbox__button")
     public Control searchButton;
-    @FindBy(locator = "css=table td.bui-calendar__date[data-date='"+"2020-10-16"+"']")
+    @FindBy(locator = "css=table td.bui-calendar__date[data-date='" + "2020-10-16" + "']")
     public Control chooseCheckInDate;
     @FindBy(locator = "css=label.sb-searchbox__label[for='checkout_monthday']")
     public Control checkOut;
@@ -40,7 +40,7 @@ public class SearchPage extends Page {
         this.getDriver ().get ( baseUrl );
 
         if (Configuration.platform ().isWeb ()) {
-            this.getDriver ().manage ().window ().setSize ( new Dimension ( 950, 1050 ) );
+            this.getDriver ().manage ().window ().setSize ( new Dimension ( 950, 1250 ) );
         }
         return this;
     }
@@ -49,11 +49,19 @@ public class SearchPage extends Page {
         //Example of handling creating a dynamic control on a page
         //containing non-static content.
 
-        Control checkInDate = buildLocatorControl ( "table td.bui-calendar__date[data-date='"+checkInDay+"']" );
-        checkInDate.click ();
+
+        Control checkInDate = buildLocatorControl ( "table td.bui-calendar__date[data-date='" + checkInDay + "']" );
+        checkInDate.exists ();
+        if (checkForFeedback ()) {
+            getDriver ().findElement ( By.xpath ( "//*[text()='Check-in Date']" ) ).click ();
+        }
+        if (checkInDate.isClickable ( 15 ))
+            checkInDate.click ();
 
         checkOut.click ();
-        Control chooseCheckOutDate = buildLocatorControl ( "table td.bui-calendar__date[data-date='"+checkOutDay+"']" );
+        checkForFeedback ();
+        Control chooseCheckOutDate = buildLocatorControl ( "table td.bui-calendar__date[data-date='" + checkOutDay + "']" );
+        chooseCheckOutDate.exists ();
         chooseCheckOutDate.click ();
     }
 
@@ -63,8 +71,20 @@ public class SearchPage extends Page {
                 forWork.click ();
         }
     }
-    private Control buildLocatorControl (String locatorText) {
-        return new Control (this, By.cssSelector ( locatorText ));
+
+    private Control buildLocatorControl(String locatorText) {
+        return new Control ( this, By.cssSelector ( locatorText ) );
     }
+
+    private boolean checkForFeedback() {
+        try {
+            if (getDriver ().findElement ( By.cssSelector ( "#ethnio-booking-theme" ) ).isDisplayed ())
+                getDriver ().findElement ( By.xpath ( "//a[text()='Close']" ) ).click ();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
 
 }

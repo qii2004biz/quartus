@@ -30,8 +30,8 @@ public class BookingSearchTest extends TestCommon {
     public static Collection<Object[]> getParameters() {
         return Arrays.asList(
                 new Object[][] {
-                        {"London", true, "2 adults"}
-                        ,{"Manchester", false, "1 adult"},
+                        {"London", true, "2"}
+                        ,{"Manchester", false, "1"},
                 }
         );
     }
@@ -39,19 +39,9 @@ public class BookingSearchTest extends TestCommon {
     @Test
     public void testValidSearch() throws Exception {
         //Actions
-        searchPage = PageFactory.init ( SearchPage.class );
-        searchPage.editDestination.setText ( this.destination );
-        searchPage.editDestination.element ().sendKeys ( ENTER );
-        searchPage.selectCheckinCheckOutDate ();
-        searchPage.selectAdultNumber.selectByText ( String.valueOf ( this.numberOfAdults ) );
-        searchPage.selectForWork ( this.isForWork );
-        searchPage.searchButton.click ();
+        TestCommon.EnterCustomerDetailsAndSearchForResults(this.destination, this.numberOfAdults, this.isForWork);
+        TestCommon.CheckForDestinationInResults(this.destination, this.numberOfAdults, this.isForWork);
 
-        searchPageResults = PageFactory.init ( SearchPageResults.class );
-        searchPageResults.editDestination.click ();
-        searchPageResults.isTextPresent ( destination );
-        String fileName = "./target/screenshots/" + searchPage.getClass ().getSimpleName () + "-" +new Date().getTime () + ".png";
-        searchPageResults.captureScreenShot ( fileName );
     }
 }
 /*

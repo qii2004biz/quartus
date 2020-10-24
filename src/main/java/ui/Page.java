@@ -29,7 +29,7 @@ public class Page {
     }
 
     public boolean isTextPresent(String text) {
-        String locator = String.format ( "//*[text()='{0}' or contains(text(), '{1}')]", text, text );
+        String locator = String.format ( "//*[text()='%s' or contains(text(), '%s' )]", text, text);
         Control element = new Control (this, By.xpath (locator));
         return element.exists ();
     }

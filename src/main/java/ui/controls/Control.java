@@ -36,12 +36,22 @@ public class Control {
         return true;
     }
 
+    public boolean isClickable(long timeout) {
+        WebDriverWait wait = new WebDriverWait ( getDriver (), timeout );
+        try {
+            wait.until ( ExpectedConditions.elementToBeClickable ( locator ) );
+        } catch (TimeoutException e) {
+            return false;
+        }
+        return true;
+    }
+
     public boolean exists() {
         return exists ( TIMEOUT );
     }
 
     public void click() {
-        Assert.assertTrue ( "Unable to find element: " + this.locator.toString (), exists ());
+        Assert.assertTrue ( "Unable to find element: " + this.locator.toString (), exists (15));
         this.element ().click ();
     }
     public By getLocator() {

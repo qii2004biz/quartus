@@ -15,6 +15,6 @@ public class SelectList extends Control {
 
     public void selectByText(String value) {
         this.exists ();
-        this.getSelect ().selectByVisibleText ( value );
+        this.getSelect ().selectByValue ( value );
     }
 }

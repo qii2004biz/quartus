@@ -11,18 +11,28 @@ import pages.SearchPage;
 import pages.SearchPageResults;
 import ui.PageFactory;
 
-import java.io.File;
-import java.util.HashMap;
+import java.util.Date;
 import java.util.Map;
 
+import static org.openqa.selenium.Keys.ENTER;
+
 public class TestCommon {
-    private Map<String, Object> vars;
-    JavascriptExecutor js;
+    private static Map<String, Object> vars;
+    private static JavascriptExecutor js;
 
-    public TestCommon () {}
+    public TestCommon() {
+    }
 
-    protected SearchPage searchPage;
-    protected SearchPageResults searchPageResults;
+    protected static SearchPage searchPage;
+    protected static SearchPageResults searchPageResults;
+
+    protected static void CheckForDestinationInResults(String destination, String numberOfAdults, boolean isForWork) throws Exception {
+        searchPageResults = PageFactory.init ( SearchPageResults.class );
+        searchPageResults.editDestination.click ();
+        searchPageResults.isTextPresent ( destination );
+        String fileName = "./target/screenshots/" + searchPage.getClass ().getSimpleName () + "-" +new Date ().getTime () + ".png";
+        searchPageResults.captureScreenShot ( fileName );
+    }
 
     @Before
     public void setUp() throws Exception {
@@ -34,27 +44,40 @@ public class TestCommon {
         String browser = System.getProperty ( "browser" );
         BrowserWebDriverSetup.setupBrowserWebDriver ();
 
-        DesiredCapabilities cap = new DesiredCapabilities (  );
-        cap.setCapability ( "platformName", "Android" );
-//        cap.setCapability ( "app", new File (Configuration.get ( "app_path" )).getAbsolutePath () );
-        cap.setCapability ( "deviceName", "Android Emulator" );
-        cap.setCapability ( "browserName", "Chrome" );
-        cap.setCapability ( "commandTimeout", "60" );
+        DesiredCapabilities cap = new DesiredCapabilities ();
 
 
         if (Configuration.platform ().isWeb ()) {
-            Driver.add (browser, cap);
+            Driver.add ( browser, cap );
         } else {
-            Driver.add (Configuration.get ( "driver_url" ), browser, cap);
+            cap.setCapability ( "platformName", "Android" );
+            cap.setCapability ( "deviceName", "Android Emulator" );
+            cap.setCapability ( "automationName", "UiAutomator2" );
+            cap.setCapability ( "browserName", "Chrome" );
+            cap.setCapability ( "commandTimeout", "60" );
+            Driver.add ( Configuration.get ( "driver_url" ), browser, cap );
         }
-
-//        js.executeScript("window.scrollTo(0,0)");
-
-        searchPage = PageFactory.init ( SearchPage.class);
+        searchPage = PageFactory.init ( SearchPage.class );
         searchPage.navigate ();
+
     }
+
     @After
     public void tearDown() {
-        Driver.current ().quit();
+        Driver.current ().quit ();
+    }
+
+    public static void EnterCustomerDetailsAndSearchForResults(String destination
+            , String numberOfAdults
+            , boolean isForWork
+    ) throws Exception {
+        searchPage = PageFactory.init ( SearchPage.class );
+        searchPage.editDestination.setText ( destination );
+        searchPage.editDestination.element ().sendKeys ( ENTER );
+        searchPage.selectCheckinCheckOutDate ();
+        searchPage.selectAdultNumber.selectByText ( String.valueOf ( numberOfAdults ) );
+        searchPage.selectForWork ( isForWork );
+        searchPage.searchButton.click ();
+
     }
 }
