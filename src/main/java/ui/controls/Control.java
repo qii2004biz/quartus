@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ui.Page;
+import ui.PageFactory;
 import ui.SubItem;
 
 import java.util.HashMap;
@@ -20,6 +21,29 @@ public class Control {
     private String itemLocator;
     private HashMap<String, SubItem> subItemHashMap;
     public static final long TIMEOUT = Configuration.timeout ();
+    public HashMap<String, SubItem> getSubItemHashMap() { return subItemHashMap; }
+
+    public boolean isExcludeFromSearch() {
+        return excludeFromSearch;
+    }
+
+    public void setExcludeFromSearch(boolean excludeFromSearch) {
+        this.excludeFromSearch = excludeFromSearch;
+    }
+
+    private boolean excludeFromSearch = false;
+
+    public Control(Page parentValue, By locatorValue) {
+        this.parent = parentValue;
+        this.locator = locatorValue;
+        this.locatorText = locatorValue.toString ().replaceAll ( "^By\\.(\\S+): ", "" );
+        this.subItemHashMap = new HashMap<String, SubItem>();
+    }
+
+    public void addSubItems(SubItem[] items) {
+        for (SubItem item : items)
+            this.subItemHashMap.put ( item.name (), item );
+    }
 
     public Page getParent() {return parent;}
 
@@ -29,19 +53,6 @@ public class Control {
 
     public void setItemLocator(String itemLocator) { this.itemLocator = itemLocator; }
 
-    public HashMap<String, SubItem> getSubItemHashMap() { return subItemHashMap; }
-
-    public void addSubItems(SubItem[] items) {
-        for (SubItem item : items)
-            this.subItemHashMap.put ( item.name (), item );
-    }
-
-    public Control(Page parentValue, By locatorValue) {
-        this.parent = parentValue;
-        this.locator = locatorValue;
-        this.locatorText = locatorValue.toString ().replaceAll ( "^By\\.(\\S+): ", "" );
-        this.subItemHashMap = new HashMap<String, SubItem>();
-    }
 
     public WebDriver getDriver() { return parent.getDriver ();}
 
@@ -93,6 +104,16 @@ public class Control {
                 , visible ());
         this.element ().click ();
     }
+
+    public <T extends Page> T clickAndWait(Class<T> pageClass) throws Exception {
+        this.click ();
+        T page = PageFactory.init ( pageClass );
+        Assert.assertTrue ( String.format("The page of the %s class isn't current", page.getClass ().getName ())
+        ,page.isCurrent () );
+        return page;
+
+    }
+
     public String getText() { return this.element ().getText (); }
 
     public By getLocator() {

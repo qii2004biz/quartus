@@ -63,9 +63,10 @@ public class PageFactory {
                             .getConstructor ( Page.class, By.class )
                             .newInstance ( page,
                                     toLocator ( anno.locator () ) );
-//                    control.setItemLocator ( anno.itemLocator() );
+                    control.setItemLocator ( anno.itemLocator() );
                     SubItem[] items = field.getAnnotationsByType ( SubItem.class );
                     control.addSubItems ( getSubItemsForPlatform ( items, Configuration.platform () ) );
+                    control.setExcludeFromSearch ( anno.excludeFromSearch () );
                     field.set ( page, control );
                 }
             }

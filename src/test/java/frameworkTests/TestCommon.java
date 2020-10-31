@@ -72,6 +72,8 @@ public class TestCommon {
             , boolean isForWork
     ) throws Exception {
         searchPage = PageFactory.init ( SearchPage.class );
+        searchPage.title.clickAndWait ( SearchPage.class );
+
         searchPage.editDestination.setText ( destination );
         searchPage.editDestination.element ().sendKeys ( ENTER );
         searchPage.selectCheckinCheckOutDate ();

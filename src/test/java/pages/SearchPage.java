@@ -15,15 +15,17 @@ import static utils.DateUtilities.adjustDate;
 public class SearchPage extends Page {
     String checkInDay = adjustDate ( "yyyy-MM-dd", 1 );
     String checkOutDay = adjustDate ( "yyyy-MM-dd", 4 );
+    @FindBy(locator = "css=#b2indexPage h1")
+    public Control title;
     @FindBy(locator = "ss")
     public Edit editDestination;
     @FindBy(locator = "css=button.sb-searchbox__button")
     public Control searchButton;
-    @FindBy(locator = "css=table td.bui-calendar__date[data-date='" + "2020-10-16" + "']")
+    @FindBy(locator = "css=table td.bui-calendar__date[data-date='" + "2020-10-16" + "']", excludeFromSearch = true)
     public Control chooseCheckInDate;
-    @FindBy(locator = "css=label.sb-searchbox__label[for='checkout_monthday']")
+    @FindBy(locator = "css=label.sb-searchbox__label[for='checkout_monthday']", excludeFromSearch = true)
     public Control checkOut;
-    @FindBy(locator = "css=table td.bui-calendar__date[data-date='2020-10-18']")
+    @FindBy(locator = "css=table td.bui-calendar__date[data-date='2020-10-18']", excludeFromSearch = true)
     public Control chooseCheckOutDate;
     @FindBy(locator = "css=input[name=sb_travel_purpose]")
     public Control forWork;

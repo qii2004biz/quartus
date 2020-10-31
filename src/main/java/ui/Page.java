@@ -10,6 +10,9 @@ import ui.controls.Control;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Field;
+
+import static ui.controls.Control.TIMEOUT;
 
 public class Page {
     private WebDriver driver;
@@ -46,6 +49,20 @@ public class Page {
         FileUtils.copyFile (srcFile, output);
         return output;
     }
+    public boolean isCurrent(long timeout) throws Exception {
+        Field[] fields = this.getClass ().getFields ();
+        for (Field field : fields) {
+            if (Control.class.isAssignableFrom ( field.getType () )) {
+                Control control = (Control) field.get(this);
+                if (!control.isExcludeFromSearch () && !control.exists (timeout)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    public boolean isCurrent() throws Exception {return isCurrent (TIMEOUT); }
+
 
 
 //    private static HashMap<String, Page> currentPages = new HashMap<String, Page> (  );

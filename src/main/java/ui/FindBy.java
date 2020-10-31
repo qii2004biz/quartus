@@ -9,7 +9,7 @@ import java.lang.annotation.*;
 @Repeatable ( FindByList.class )
 public @interface FindBy {
     String locator();
+    String itemLocator() default "";
     Platform platform() default Platform.ANY;
-
-//    String itemLocator();
+    boolean excludeFromSearch() default false;
 }

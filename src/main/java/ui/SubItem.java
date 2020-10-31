@@ -2,7 +2,6 @@ package ui;
 
 import core.Platform;
 import ui.controls.Control;
-import ui.controls.SubItems;
 
 import java.lang.annotation.*;
 
