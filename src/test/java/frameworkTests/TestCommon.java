@@ -61,7 +61,6 @@ public class TestCommon {
         searchPage.navigate ();
 
     }
-
     @After
     public void tearDown() {
         Driver.current ().quit ();
@@ -72,6 +71,7 @@ public class TestCommon {
             , boolean isForWork
     ) throws Exception {
         searchPage = PageFactory.init ( SearchPage.class );
+        searchPage.navigate ();
         searchPage.title.clickAndWait ( SearchPage.class );
 
         searchPage.editDestination.setText ( destination );

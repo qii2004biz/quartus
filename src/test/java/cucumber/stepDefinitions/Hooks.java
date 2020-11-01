@@ -11,7 +11,6 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import pages.SearchPage;
 import pages.SearchPageResults;
 import ui.Page;
-import ui.PageFactory;
 
 import java.io.IOException;
 import java.util.Date;
@@ -49,15 +48,13 @@ public class Hooks {
             cap.setCapability ( "commandTimeout", "60" );
             Driver.add ( Configuration.get ( "driver_url" ), browser, cap );
         }
-        searchPage = PageFactory.init ( SearchPage.class );
-        searchPage.navigate ();
     }
 
     @After
     public void afterScenario(Scenario scenario) throws IOException {
         if (scenario.isFailed ()) {
             Page currentPage = new Page ( Driver.current () );
-            String fileName = "./target/screenshots/" + searchPage.getClass ().getSimpleName () + "-" +new Date ().getTime () + ".png";
+            String fileName = "./target/screenshots/" + currentPage.getClass ().getSimpleName () + "-" +new Date ().getTime () + ".png";
             currentPage.captureScreenShot ( fileName );
         }
         Driver.current ().quit ();

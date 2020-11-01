@@ -6,39 +6,12 @@
     <groupId>com.nfosmart</groupId>
     <artifactId>nfs-automation-framework</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
-                <configuration>
-                    <source>11</source>
-                    <target>11</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.12.2</version>
-                <configuration>
-                    <argLine>-Duser.language=en</argLine>
-                    <argLine>-Xmx1024m</argLine>
-                    <argLine>-XX:MaxPermSize=256m</argLine>
-                    <argLine>-Dfile.encoding=UTF-8</argLine>
-                    <useFile>false</useFile>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-    <distributionManagement>
-        <repository>
-            <id>central</id>
-            <name>a0ilirjsbulkp-artifactory-primary-0-releases</name>
-            <url>https://qii2004biz.jfrog.io/artifactory/libs-release-local</url>
-        </repository>
-    </distributionManagement>
-
+    <packaging>jar</packaging>
+    <name>BDD Junit Cucumber Framework</name>
+    <organization>
+        <name>nForSmart</name>
+        <url>com.nforSmart</url>
+    </organization>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <serenity.version>2.0.52</serenity.version>
@@ -54,6 +27,14 @@
         <webdriver.base.url></webdriver.base.url>
         <webdriver.driver>chrome</webdriver.driver>
     </properties>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>a0ilirjsbulkp-artifactory-primary-0-snapshots</name>
+            <url>https://qii2004biz.jfrog.io/artifactory/libs-snapshot</url>
+        </snapshotRepository>
+    </distributionManagement>
+
     <dependencies>
         <dependency>
             <groupId>io.cucumber</groupId>
@@ -218,4 +199,36 @@
             <version>4.5.12</version>
         </dependency>
     </dependencies>
+    <build>
+        <finalName>nfs-automation-framework</finalName>
+        <resources>
+            <resource>
+                <directory>src</directory>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.12.4</version>
+                <configuration>
+                    <argLine>-Duser.language=en</argLine>
+                    <argLine>-Xmx1024m</argLine>
+                    <argLine>-XX:MaxPermSize=256m</argLine>
+                    <argLine>-Dfile.encoding=UTF-8</argLine>
+                    <useFile>false</useFile>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>

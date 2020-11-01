@@ -63,15 +63,48 @@ public class Page {
     }
     public boolean isCurrent() throws Exception {return isCurrent (TIMEOUT); }
 
+    public boolean allElementsAre(Control [] elements, String state) throws Exception {
+        for (Control element : elements) {
+            if (!(boolean)element.getClass ().getMethod(state).invoke ( element )) {
+                return false;
+            }
+        }
+        return true;
+    }    public boolean anyElementsIs(Control [] elements, String state) throws Exception {
+        for (Control element : elements) {
+            if (!(boolean)element.getClass ().getMethod(state).invoke ( element )) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean allElementsAreExists(Control [] elements) throws Exception {
+        return allElementsAre ( elements, "exists" );
+    }
+    public boolean allElementsAreVisible(Control [] elements) throws Exception {
+        return allElementsAre ( elements, "visible" );
+    }
+    public boolean allElementsAreInvisible(Control [] elements) throws Exception {
+        return allElementsAre ( elements, "invisible" );
+    }
+    public boolean allElementsAreEnabled(Control [] elements) throws Exception {
+        return allElementsAre ( elements, "enabled" );
+    }
+    public boolean allElementsAreDisabled(Control [] elements) throws Exception {
+        return allElementsAre ( elements, "disabled" );
+    }
 
+    public boolean anyElementsAreExists(Control [] elements) throws Exception {
+        return anyElementsIs ( elements, "exists" );
+    }
+    public boolean anyElementsDoesNotExist(Control [] elements) throws Exception {
+        return anyElementsIs ( elements, "disappears" );
+    }
+    public boolean anyElementsIsVisible(Control [] elements) throws Exception {
+        return anyElementsIs ( elements, "visible" );
+    }
+    public boolean anyElementsIsInvisible(Control [] elements) throws Exception {
+        return anyElementsIs ( elements, "invisible" );
+    }
 
-//    private static HashMap<String, Page> currentPages = new HashMap<String, Page> (  );
-
-
-//    public static Page getCurrent() {
-//        return currentPages.get ( Driver.getThreadName () );
-//    }
-//    public static void setCurrent(String value) {
-//        return currentPages.put (value, Driver.  );
-//    }
 }

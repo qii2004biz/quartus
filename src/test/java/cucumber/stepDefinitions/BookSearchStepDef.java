@@ -4,7 +4,6 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import frameworkTests.TestCommon;
-import pages.SearchPage;
 import pages.SearchPageResults;
 import ui.PageFactory;
 
@@ -14,8 +13,9 @@ public class BookSearchStepDef {
     public BookSearchStepDef() throws Exception {
     }
 
-    @Given("A Consumer is on the Booking.com landing page")
-    public void aConsumerIsOnTheBookingComLandingPage() throws Exception {
+    @Given("A Consumer is on the {string} landing page")
+    public void aConsumerIsOnTheBookingComLandingPage(String url) throws Exception {
+        System.setProperty ( "url", "http://" + url );
 //        testCommon.setUp ();
     }
 
