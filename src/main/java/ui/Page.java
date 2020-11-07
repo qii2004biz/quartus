@@ -1,20 +1,26 @@
 package ui;
 
+import core.Alias;
+import core.Configuration;
+import core.Driver;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.Augmenter;
+import org.reflections.Reflections;
 import ui.controls.Control;
 
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
-
-import static ui.controls.Control.TIMEOUT;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Page {
+    protected static final long TIMEOUT = Configuration.timeout ();
+    private static ConcurrentHashMap<String, Page> currentPages = new ConcurrentHashMap<String, Page>();
     private WebDriver driver;
 
     public Page(WebDriver driver) {
@@ -22,13 +28,46 @@ public class Page {
         this.driver = driver;
     }
 
+    public static Page screen(String name) throws  Exception {
+        return screen(name, Configuration.get ( "pages_package" ) );
+    }
+
+    public static Page screen(String name, String pagePackage ) throws  Exception {
+        Reflections reflections = new Reflections ( pagePackage );
+        Set<Class<? extends Page>> subTypes = reflections.getSubTypesOf ( Page.class );
+        for (Class<? extends Page> type : subTypes ) {
+            Alias annotation = type.getAnnotation ( Alias.class );
+            if (annotation != null && annotation.value ().equals ( name )) {
+                return PageFactory.init ( type );
+            }
+        }
+        return null;
+    }
+
     public WebDriver getDriver() {
         return driver;
     }
-
+    public static Page getCurrent() {
+        return currentPages.get ( Driver.getThreadName () );
+    }
+    public static void setCurrent(Page newPage ) {
+        currentPages.put ( Driver.getThreadName (), newPage );
+    }
 
     public Page navigate() {
         return this;
+    }
+
+    public Control onPage ( String name ) throws Exception {
+        for ( Field field : this.getClass ().getFields ()) {
+            if ( Control.class.isAssignableFrom ( field.getType () )) {
+                Alias alias = field.getAnnotation ( Alias.class );
+                if (alias != null && name.equals ( alias.value () )) {
+                    return ( Control ) field.get ( this );
+                }
+            }
+        }
+        return null;
     }
 
     public boolean isTextPresent(String text) {

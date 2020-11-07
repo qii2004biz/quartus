@@ -40,7 +40,7 @@ public final class Driver {
         }
     };
 
-    private static String getThreadName() {
+    public static String getThreadName() {
         return Thread.currentThread ().getName () + "-" + Thread.currentThread ().getId ();
     }
 

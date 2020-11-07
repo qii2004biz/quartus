@@ -17,6 +17,7 @@ public class SearchPage extends Page {
     String checkOutDay = adjustDate ( "yyyy-MM-dd", 4 );
     @FindBy(locator = "css=#b2indexPage h1")
     public Control title;
+
     @FindBy(locator = "ss")
     public Edit editDestination;
     @FindBy(locator = "css=button.sb-searchbox__button")

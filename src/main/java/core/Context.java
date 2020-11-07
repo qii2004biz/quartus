@@ -2,6 +2,7 @@ package core;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Context {
@@ -35,5 +36,8 @@ public class Context {
     }
     public static void clearCurrent( ) {
         contextVariables.put ( getThreadName (), new HashMap<String, Object> () );
+    }
+    public static Set<String> variables () {
+        return contextVariables.get ( getThreadName () ).keySet ();
     }
 }

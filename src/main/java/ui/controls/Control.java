@@ -92,6 +92,14 @@ public class Control {
         ,exists ());
         return inVisible (TIMEOUT);
     }
+    public boolean disappears(long timeout) {
+        return waitUntil(ExpectedConditions.invisibilityOfElementLocated ( locator ), timeout );
+    }
+    public boolean disappears() {
+        Assert.assertTrue ( "Unable to find element: " + this.locator.toString ()
+        ,exists ());
+        return disappears (TIMEOUT);
+    }
     public boolean enabled(long timeout) {
         return waitUntil( elementToBeClickable ( locator ), timeout );
     }

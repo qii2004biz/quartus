@@ -1,6 +1,7 @@
 package cucumber.stepDefinitions;
 
 import core.Configuration;
+import core.Context;
 import core.Driver;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
@@ -28,6 +29,7 @@ public class Hooks {
 
     @Before
     public void beforeScenario(Scenario scenario) throws Exception {
+        Context.clearCurrent ();
         js = (JavascriptExecutor) Driver.current ();
 
         Configuration.load ();
