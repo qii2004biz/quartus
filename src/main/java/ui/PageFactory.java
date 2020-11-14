@@ -18,7 +18,7 @@ public class PageFactory {
         if (input.matches ( "^(xpath=|/)(.*)" )) {
             return By.xpath ( input.replaceAll ( "^xpath=", "" ) );
         } else if (input.matches ( "^id=(.*)" )) {
-            return By.id ( input.substring ( "id".length () ) );
+            return By.id ( input.substring ( "id=".length () ) );
         } else if (input.matches ( "^name=(.*)" )) {
             return By.name ( input.substring ( "name=".length () ) );
         } else if (input.matches ( "^css=(.*)" )) {
