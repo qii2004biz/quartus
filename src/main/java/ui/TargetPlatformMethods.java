@@ -1,7 +1,5 @@
 package ui;
 
-import org.apache.tools.ant.types.resources.selectors.InstanceOf;
-
 public class TargetPlatformMethods {
 
     public static String name(TargetPlatform type) {
