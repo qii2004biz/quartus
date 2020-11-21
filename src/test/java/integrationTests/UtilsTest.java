@@ -29,11 +29,11 @@ public class UtilsTest {
     String d3 = DateUtilities.adjustDate(YYYY_MM_DD, THREE_SIX_SIX_DAYS).replaceAll(FORWARD_SLASH, BLANK);
     String d4 = DateUtilities.adjustDate(YYYY_MM_DD, THREE_SIX_SIX_DAYS).replaceAll(FORWARD_SLASH, BLANK);
     Faker faker = Faker.instance ();
-    String email = Faker.instance ().name () +"." + Faker.instance ().name ()
-            .lastName () + Faker.instance ().number ().digits ( 3 )+"@nowhere.com";
-    String phone = Faker.instance ().phoneNumber ().cellPhone ();
-    String zip = Faker.instance ().address ().zipCode ();
-    String county = Faker.instance ().address ().countyByZipCode ( zip );
+    String email = faker.name ().firstName () +"." + faker.name ().lastName ()
+            +faker.number ().digits ( 3 )+"@nowhere.com";
+    String phone = faker.phoneNumber ().cellPhone ();
+    String zip = faker.address ().zipCode ();
+//    String county = faker.address ().countyByZipCode ( zip );
 
     public UtilsTest() throws ParseException {
     }
@@ -44,7 +44,7 @@ public class UtilsTest {
                 + "|" + faker.address ().city ()
                 + "|" + faker.address ().state ()
                 + "|" + zip
-                + "|" + county
+                + "|" + "county"
                 + "|" + phone;
 
         EmailValidator emailValidator = EmailValidator.getInstance();
