@@ -50,3 +50,21 @@ Thumbs.db
 
 
 !.idea/
+/.idea/.name
+/.idea/aws.xml
+/.idea/checkstyle-idea.xml
+/.idea/compiler.xml
+/.idea/encodings.xml
+/.idea/jarRepositories.xml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/vcs.xml
+/buld/cucumber-html-report/formatter.js
+/buld/cucumber-html-report/index.html
+/buld/cucumber-html-report/jquery-3.4.1.min.js
+/buld/cucumber-html-report/report.js
+/buld/cucumber-html-report/style.css
+/build/cucumber.json
+/build/cucumber-junit.xml
+/build/cucumber-pretty.txt
+/build/cucumber-usage.json

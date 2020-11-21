@@ -13,6 +13,7 @@ import org.junit.runner.RunWith;
                 , "usage:build/cucumber-usage.json"
         },
         features = {"src/test/resources/features"}
+        ,glue={"cucumber/stepDefinitions"}
 )
 public class RunCukes {
 }

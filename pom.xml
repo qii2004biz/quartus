@@ -9,8 +9,8 @@
     <packaging>jar</packaging>
     <name>BDD Junit Cucumber Framework</name>
     <organization>
-        <name>nForSmart</name>
-        <url>com.nforSmart</url>
+        <name>quartus</name>
+        <url>com.quartusnetllc</url>
     </organization>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
