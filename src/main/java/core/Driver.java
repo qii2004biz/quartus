@@ -5,6 +5,7 @@ import io.appium.java_client.ios.IOSDriver;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
@@ -55,6 +56,21 @@ public final class Driver {
     public static void add(String browser, Capabilities capabilities) throws Exception {
         Class<?> driverClass = driverMap.get ( browser );
         driver = (WebDriver) driverClass.getConstructor ( Capabilities.class ).newInstance ( capabilities );
+        String threadName = getThreadName ();
+        driverThreadMap.put ( threadName, driver );
+    }
+
+    public static void addChromeOptions(String url, String browser, ChromeOptions options) throws Exception {
+        Class<?> driverClass = driverMap.get ( browser );
+        driver = (WebDriver) driverClass.getConstructor ( URL.class, ChromeOptions.class )
+                .newInstance ( new URL(url), options );
+        String threadName = getThreadName ();
+        driverThreadMap.put ( threadName, driver );
+    }
+
+    public static void addChromeOptions(String browser, ChromeOptions options) throws Exception {
+        Class<?> driverClass = driverMap.get ( browser );
+        driver = (WebDriver) driverClass.getConstructor ( ChromeOptions.class ).newInstance ( options );
         String threadName = getThreadName ();
         driverThreadMap.put ( threadName, driver );
     }

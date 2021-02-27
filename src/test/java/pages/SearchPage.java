@@ -18,6 +18,7 @@ public class SearchPage extends Page {
     @FindBy(locator = "css=#b2indexPage h1")
     public Control title;
 
+
     @FindBy(locator = "ss")
     public Edit editDestination;
     @FindBy(locator = "css=button.sb-searchbox__button")

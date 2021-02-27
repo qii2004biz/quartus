@@ -1,13 +1,11 @@
 package ui;
 
+import com.paulhammant.ngwebdriver.NgWebDriver;
 import core.Alias;
 import core.Configuration;
 import core.Driver;
 import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.remote.Augmenter;
 import org.reflections.Reflections;
 import ui.controls.Control;
@@ -22,6 +20,8 @@ public class Page {
     protected static final long TIMEOUT = Configuration.timeout ();
     private static ConcurrentHashMap<String, Page> currentPages = new ConcurrentHashMap<String, Page>();
     private WebDriver driver;
+    private NgWebDriver ngWebDriver;
+    private JavascriptExecutor jsDriver;
 
     public Page(WebDriver driver) {
         super ();
@@ -79,6 +79,13 @@ public class Page {
         WebDriver augmentedDriver = new Augmenter ().augment(getDriver ());
         byte [] data = ((TakesScreenshot) augmentedDriver).getScreenshotAs ( OutputType.BYTES );
         return data;
+    }
+    public Control buildCssControl (String locatorText) {
+        return new Control ( this, By.cssSelector ( locatorText ) );
+    }
+
+    public Control buildXpathControl (String locatorText) {
+        return new Control ( this, By.xpath ( locatorText ) );
     }
 
     public File captureScreenShot(String destination) throws IOException {
@@ -144,6 +151,11 @@ public class Page {
     }
     public boolean anyElementsIsInvisible(Control [] elements) throws Exception {
         return anyElementsIs ( elements, "invisible" );
+    }
+    public void waitForAngularRequestToComplete () {
+        this.jsDriver = (JavascriptExecutor) this.driver;
+        ngWebDriver = new NgWebDriver(this.jsDriver );
+        ngWebDriver.waitForAngularRequestsToFinish();
     }
 
 }

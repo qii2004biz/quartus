@@ -6,7 +6,7 @@ import org.junit.runner.RunWith;
 @RunWith ( Cucumber.class )
 @CucumberOptions(
         plugin = {
-                "html:buld/cucumber-html-report"
+                "html:build/cucumber-html-report"
                 , "junit:build/cucumber-junit.xml"
                 , "json:build/cucumber.json"
                 , "pretty:build/cucumber-pretty.txt"

@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -23,6 +24,8 @@ public class Control {
     private String locatorText;
     private String itemLocator;
     private HashMap<String, SubItem> subItemHashMap;
+    private Actions actions;
+
     public static final long TIMEOUT = Configuration.timeout ();
     public HashMap<String, SubItem> getSubItemHashMap() { return subItemHashMap; }
 
@@ -136,7 +139,14 @@ public class Control {
     public void click() {
         Assert.assertTrue ( "Unable to find element: " + this.locator.toString ()
                 , visible ());
+        moveToElement ();
         this.element ().click ();
+    }
+
+    private void moveToElement() {
+        actions = new Actions ( getDriver () );
+        actions.moveToElement ( this.element () );
+        actions.perform ();
     }
 
     public <T extends Page> T clickAndWait(Class<T> pageClass) throws Exception {

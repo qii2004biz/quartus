@@ -3,14 +3,14 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.nfosmart</groupId>
-    <artifactId>nfs-automation-framework</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <groupId>com.quartusnet</groupId>
+    <artifactId>qii-automation-framework</artifactId>
+    <version>1.0</version>
     <packaging>jar</packaging>
     <name>BDD Junit Cucumber Framework</name>
     <organization>
         <name>quartus</name>
-        <url>com.quartusnetllc</url>
+        <url>com.quartusnet</url>
     </organization>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -29,14 +29,17 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
-    <distributionManagement>
-        <snapshotRepository>
-            <id>snapshots</id>
-            <name>a0ilirjsbulkp-artifactory-primary-0-snapshots</name>
-            <url>https://qii2004biz.jfrog.io/artifactory/libs-snapshot</url>
-        </snapshotRepository>
-    </distributionManagement>
-
+    <repositories>
+        <repository>
+            <id>central</id>
+            <name>Maven Central</name>
+            <layout>default</layout>
+            <url>https://repo1.maven.org/maven2</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
     <dependencies>
         <dependency>
             <groupId>io.cucumber</groupId>
@@ -201,7 +204,7 @@
         <dependency>
             <groupId>com.github.javafaker</groupId>
             <artifactId>javafaker</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/io.appium/java-client -->
         <dependency>
@@ -246,9 +249,14 @@
             <artifactId>serenity-junit</artifactId>
             <version>${serenity.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.paulhammant</groupId>
+            <artifactId>ngwebdriver</artifactId>
+            <version>1.1.4</version>
+        </dependency>
     </dependencies>
     <build>
-        <finalName>nfs-automation-framework</finalName>
+        <finalName>qii-automation-framework</finalName>
         <resources>
             <resource>
                 <directory>src</directory>
@@ -278,5 +286,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
