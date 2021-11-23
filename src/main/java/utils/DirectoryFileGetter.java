@@ -1,5 +1,7 @@
 package utils;
 
+import net.thucydides.junit.annotations.UseTestDataFrom;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -11,7 +13,6 @@ import java.util.stream.Collectors;
 public class DirectoryFileGetter {
     private static DirectoryFileGetter uniqueInstance;
     private static List<File> filesInFolder;
-
     public static synchronized DirectoryFileGetter getUniqueInstance() {
 
         if (uniqueInstance == null) {

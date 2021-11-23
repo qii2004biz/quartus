@@ -9,8 +9,7 @@ public class Context {
 
     private Context() {}
 
-    private static ConcurrentHashMap<String, Map<String, Object>> contextVariables
-            = new ConcurrentHashMap<String, Map<String, Object>> (  );
+    private static ConcurrentHashMap<String, Map<String, Object>> contextVariables;
 
     private static String getThreadName() {
         return Thread.currentThread ().getName () + "-" + Thread.currentThread ().getId ();
@@ -19,6 +18,10 @@ public class Context {
     public static void put (String name, Object value ) {
         Map<String, Object> dataMap = new HashMap<> ();
         String threadName = getThreadName ();
+
+        if (contextVariables == null)
+            contextVariables = new ConcurrentHashMap<String, Map<String, Object>> (  );
+
         if ( contextVariables.contains ( threadName )) {
             dataMap = contextVariables.get ( threadName );
         }

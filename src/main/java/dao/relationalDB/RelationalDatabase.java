@@ -118,7 +118,5 @@ public class RelationalDatabase {
             String message = "SQL Exception when closing connection or statement";
             Reporter.logException(message, ex);
         }
-
     }
-
 }

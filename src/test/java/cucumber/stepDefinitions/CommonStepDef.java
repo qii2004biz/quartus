@@ -84,15 +84,22 @@ public class CommonStepDef {
     }
 
     @Then("(I should see |)the {string} field contains the {string} text")
-    public Control verifyFieldText (String fieldName, String text) throws Exception {
+    public Control verifyFieldText (String fieldName, String expText) throws Exception {
         Control control = verifyElementExists ( fieldName );
-        String actualText = control.getText ().trim ().replaceAll ( "\n", "" );
+        String actText = removeSpecialChars(control.getText ());
         Assert.assertTrue ( String.format ( "The '%s' field has unexpected text. \nExp: '%s', \nGot: '%s'"
                 , fieldName
-                , text.trim ()
-                , actualText )
-                , text.equals ( actualText ) || actualText.contains ( text ) );
+                , expText.trim ()
+                , actText )
+                , expText.equals ( actText ) || actText.contains ( expText ) );
         return control;
+    }
+
+    private String removeSpecialChars(String text) {
+        return text
+                .replaceAll ( "\n","" )
+                .replaceAll ( "\\|","" )
+                .trim();
     }
 
     @Then("I should see {string} (page|screen)")
