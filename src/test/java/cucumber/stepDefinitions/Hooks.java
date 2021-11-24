@@ -29,7 +29,7 @@ public class Hooks {
 
     @Before
     public void beforeScenario(Scenario scenario) throws Exception {
-        Context.clearCurrent ();
+//        Context.clearCurrent ();
         js = (JavascriptExecutor) Driver.current ();
 
         Configuration.load ();
