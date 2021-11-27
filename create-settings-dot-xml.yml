@@ -1,0 +1,2 @@
+- name: Generate settings.xml for Maven Builds
+  uses: whelk-io/maven-settings-xml-action@v20
