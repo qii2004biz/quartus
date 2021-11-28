@@ -15,7 +15,8 @@ import static utils.DateUtilities.adjustDate;
 public class SearchPage extends Page {
     String checkInDay = adjustDate ( "yyyy-MM-dd", 1 );
     String checkOutDay = adjustDate ( "yyyy-MM-dd", 4 );
-    @FindBy(locator = "css=#b2indexPage h1")
+    @FindBy(locator = "css=#b2indexPage .bui-header__main")
+    //#b2indexPage > header > nav.bui-header__bar > div.bui-header__main
     public Control title;
 
 

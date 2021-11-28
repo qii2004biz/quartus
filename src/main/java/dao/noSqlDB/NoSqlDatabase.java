@@ -8,10 +8,11 @@ import org.junit.Assert;
 import utils.PropertiesManager;
 
 public class NoSqlDatabase {
-    public static final String MONGODB_INTERNAL_HOSTNAME = "mongodb.internal.hostname";
-    public static final String MONGODB_INTERNAL_PORT = "mongodb.internal.port";
-    public static final String MONGODB_EXTERNAL_HOSTNAME = "mongodb.external.hostname";
-    public static final String MONGODB_EXTERNAL_PORT = "mongodb.external.port";
+    public static final String MONGODB_LOCAL_HOSTNAME = "mongodb.local.hostname";
+    public static final String MONGODB_LOCAL_PORT = "mongodb.local.port";
+    public static final String MONGODB_SHARED_HOSTNAME = "mongodb.shared.hostname";
+    public static final String MONGODB_SHARED_PORT = "mongodb.shared.port";
+    public static final String NO_SQL_HOST = "noSqlHost";
     private String hostName;
     private String dbName;
     private Integer portNo;
@@ -50,18 +51,22 @@ public class NoSqlDatabase {
     }
 
     private void getMongoDbHostAndPortValues() {
-        if (userDomain.equals("COMPANY") || userDomain.equals("NONPROD")) {
-            hostNameKey = MONGODB_INTERNAL_HOSTNAME;
-            portNoKey = MONGODB_INTERNAL_PORT;
-        } else {
-            hostNameKey = MONGODB_EXTERNAL_HOSTNAME;
-            portNoKey = MONGODB_EXTERNAL_PORT;
+        String noSqlHost_prop = System.getProperty ( NO_SQL_HOST );
+        hostNameKey = MONGODB_LOCAL_HOSTNAME;
+        portNoKey = MONGODB_LOCAL_PORT;
+        if (System.getProperty ( noSqlHost_prop) != null) {
+            if (noSqlHost_prop.toUpperCase () == "SHARED") {
+                hostNameKey = MONGODB_SHARED_HOSTNAME;
+                portNoKey = MONGODB_SHARED_PORT;
+            }
         }
     }
 
     private void failWhenNull() {
-        if (this.hostName == null || this.portNo == null)
-            Assert.fail("ERROR: mongoDb.properties not set properly! " + NoSqlDatabase.class.getName());
+        if (this.hostName == null)
+            Assert.fail("ERROR: mongoDb.properties hostName is null! " + NoSqlDatabase.class.getName());
+        if (this.portNo == null || this.portNo == 0)
+            Assert.fail("ERROR: mongoDb.properties portNo is null or zero! " + NoSqlDatabase.class.getName());
     }
 
     private void openConnection() {

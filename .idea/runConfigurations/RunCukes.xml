@@ -1,16 +1,18 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="TargetPlatformMethodsTests" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+  <configuration default="false" name="RunCukes" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+    <module name="nfs-automation-framework" />
     <useClassPathOnly />
     <extension name="coverage">
       <pattern>
-        <option name="PATTERN" value="frameworkTests.*" />
+        <option name="PATTERN" value="runners.*" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>
-    <option name="PACKAGE_NAME" value="frameworkTests" />
-    <option name="MAIN_CLASS_NAME" value="frameworkTests.TargetPlatformMethodsTests" />
+    <option name="PACKAGE_NAME" value="runners" />
+    <option name="MAIN_CLASS_NAME" value="runners.RunCukes" />
     <option name="METHOD_NAME" value="" />
     <option name="TEST_OBJECT" value="class" />
+    <option name="VM_PARAMETERS" value="-ea -Dbrowser=chrome" />
     <option name="PARAMETERS" value="" />
     <method v="2">
       <option name="Make" enabled="true" />

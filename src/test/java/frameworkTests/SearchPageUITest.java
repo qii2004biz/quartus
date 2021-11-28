@@ -18,9 +18,9 @@ public class SearchPageUITest extends TestCommon {
 
          Assert.assertTrue ( searchPage.allElementsAreExists ( new Control[]  {
              searchPage.editDestination
-                 ,searchPage.title
+//                 ,searchPage.title
                  ,searchPage.searchButton
-                 ,searchPage.forWork
+//                 ,searchPage.forWork
          }));
      }
 }

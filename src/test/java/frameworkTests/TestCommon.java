@@ -77,7 +77,7 @@ public class TestCommon {
         searchPage.editDestination.setText ( destination );
         searchPage.editDestination.element ().sendKeys ( ENTER );
         searchPage.selectCheckinCheckOutDate ();
-        searchPage.selectAdultNumber.selectByText ( String.valueOf ( numberOfAdults ) );
+//        searchPage.selectAdultNumber.selectByText ( String.valueOf ( numberOfAdults ) );
         searchPage.selectForWork ( isForWork );
         searchPage.searchButton.click ();
 

@@ -1,6 +1,9 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Feature: searchBooking" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" nameIsGenerated="true">
     <option name="CUCUMBER_CORE_VERSION" value="4.5" />
+    <envs>
+      <env name="-Dbrowser" value="chrome -Durl=www.booking.com" />
+    </envs>
     <option name="FILE_PATH" value="$PROJECT_DIR$/src/test/resources/features/searchBooking.feature" />
     <option name="GLUE" value="cucumber.stepDefinitions" />
     <option name="MAIN_CLASS_NAME" value="io.cucumber.core.cli.Main" />

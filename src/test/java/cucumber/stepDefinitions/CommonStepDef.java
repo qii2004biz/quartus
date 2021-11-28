@@ -6,7 +6,6 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
-import pages.NfoSmartLandingPage;
 import ui.Page;
 import ui.controls.Control;
 import ui.controls.Edit;
@@ -16,7 +15,6 @@ import java.util.List;
 import java.util.Map;
 
 public class CommonStepDef {
-    NfoSmartLandingPage nfoSmartLandingPage;
 
     @Given("Consumer is on nfoSmart url {string}")
     public void homeIsUp(String url) throws Exception {

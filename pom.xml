@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.quartusnet</groupId>
     <artifactId>qii-automation-framework</artifactId>
-    <version>1.0</version>
+    <version>1.0.1</version>
     <packaging>jar</packaging>
     <name>BDD Junit Cucumber Framework</name>
     <organization>
