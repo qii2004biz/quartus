@@ -2,7 +2,7 @@
 Feature: Home page interactions
 
   Scenario: NfoSmartLanding page
-    Given Consumer is on nfoSmart url "localhost"
+    Given Consumer is on nfoSmart url "nfoSmart.com"
     Then I should see the following fields are shown:
       | Page Title |
     And I have the following text on the page

@@ -30,13 +30,12 @@
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
     <distributionManagement>
-        <snapshotRepository>
-            <id>snapshots</id>
-            <name>a0ilirjsbulkp-artifactory-primary-0-snapshots</name>
-            <url>https://qii2004biz.jfrog.io/artifactory/libs-snapshot</url>
-        </snapshotRepository>
+        <repository>
+            <id>github</id>
+            <name>GitHub qii2004biz Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/qii2004biz/quartus</url>
+        </repository>
     </distributionManagement>
-
     <dependencies>
         <dependency>
             <groupId>io.cucumber</groupId>
